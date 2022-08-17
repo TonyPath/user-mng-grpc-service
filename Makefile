@@ -39,3 +39,7 @@ coverage: test
 
 report: coverage
 	go tool cover -html=coverage.out -o cover.html
+
+update-deps:
+	go get -u -v ./...
+	go mod tidy
