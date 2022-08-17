@@ -1,0 +1,17 @@
+syntax = "proto3";
+
+package events.user;
+
+option go_package = "events/user";
+
+import "google/protobuf/timestamp.proto";
+
+message UserCreated {
+  string user_id = 1;
+  google.protobuf.Timestamp created_at = 3;
+}
+
+message UserUpdated {
+  string user_id = 1;
+  google.protobuf.Timestamp updated_at = 3;
+}
