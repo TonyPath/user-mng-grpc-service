@@ -1,6 +1,5 @@
 # GRPC User management service 
-Copyright © 2022, [Antonis Papatheodorou](https://github.com/TonyPath).
-***
+
 ## Infra
 
 ### DB/Storage
