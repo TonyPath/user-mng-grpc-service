@@ -16,8 +16,8 @@ import (
 	pbevents "github.com/TonyPath/user-mng-grpc-service/proto/events/user"
 )
 
-//go:generate moq -out user_storage_mock_test.go . userStorage
-type userStorage interface {
+//go:generate moq -out user_storage_mock_test.go . UserStorage
+type UserStorage interface {
 	InsertUser(ctx context.Context, user models.User) (uuid.UUID, error)
 	UpdateUser(ctx context.Context, userID uuid.UUID, user models.User) error
 	DeleteUser(ctx context.Context, userID uuid.UUID) error
@@ -26,17 +26,17 @@ type userStorage interface {
 	ExistsByID(ctx context.Context, userID uuid.UUID) (bool, error)
 }
 
-//go:generate moq -out event_publisher_mock_test.go . eventPublisher
-type eventPublisher interface {
+//go:generate moq -out event_publisher_mock_test.go . EventPublisher
+type EventPublisher interface {
 	Publish(ctx context.Context, topic string, key string, pbMessage proto.Message) error
 }
 
 type UserService struct {
-	repo           userStorage
-	eventPublisher eventPublisher
+	repo           UserStorage
+	eventPublisher EventPublisher
 }
 
-func NewUserService(repo userStorage, publisher eventPublisher) *UserService {
+func NewUserService(repo UserStorage, publisher EventPublisher) *UserService {
 	return &UserService{
 		repo:           repo,
 		eventPublisher: publisher,

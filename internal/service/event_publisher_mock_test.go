@@ -9,26 +9,26 @@ import (
 	"sync"
 )
 
-// Ensure, that eventPublisherMock does implement eventPublisher.
+// Ensure, that EventPublisherMock does implement EventPublisher.
 // If this is not the case, regenerate this file with moq.
-var _ eventPublisher = &eventPublisherMock{}
+var _ EventPublisher = &EventPublisherMock{}
 
-// eventPublisherMock is a mock implementation of eventPublisher.
+// EventPublisherMock is a mock implementation of EventPublisher.
 //
-// 	func TestSomethingThatUseseventPublisher(t *testing.T) {
+// 	func TestSomethingThatUsesEventPublisher(t *testing.T) {
 //
-// 		// make and configure a mocked eventPublisher
-// 		mockedeventPublisher := &eventPublisherMock{
+// 		// make and configure a mocked EventPublisher
+// 		mockedEventPublisher := &EventPublisherMock{
 // 			PublishFunc: func(ctx context.Context, topic string, key string, pbMessage protoreflect.ProtoMessage) error {
 // 				panic("mock out the Publish method")
 // 			},
 // 		}
 //
-// 		// use mockedeventPublisher in code that requires eventPublisher
+// 		// use mockedEventPublisher in code that requires EventPublisher
 // 		// and then make assertions.
 //
 // 	}
-type eventPublisherMock struct {
+type EventPublisherMock struct {
 	// PublishFunc mocks the Publish method.
 	PublishFunc func(ctx context.Context, topic string, key string, pbMessage protoreflect.ProtoMessage) error
 
@@ -50,9 +50,9 @@ type eventPublisherMock struct {
 }
 
 // Publish calls PublishFunc.
-func (mock *eventPublisherMock) Publish(ctx context.Context, topic string, key string, pbMessage protoreflect.ProtoMessage) error {
+func (mock *EventPublisherMock) Publish(ctx context.Context, topic string, key string, pbMessage protoreflect.ProtoMessage) error {
 	if mock.PublishFunc == nil {
-		panic("eventPublisherMock.PublishFunc: method is nil but eventPublisher.Publish was just called")
+		panic("EventPublisherMock.PublishFunc: method is nil but EventPublisher.Publish was just called")
 	}
 	callInfo := struct {
 		Ctx       context.Context
@@ -73,8 +73,8 @@ func (mock *eventPublisherMock) Publish(ctx context.Context, topic string, key s
 
 // PublishCalls gets all the calls that were made to Publish.
 // Check the length with:
-//     len(mockedeventPublisher.PublishCalls())
-func (mock *eventPublisherMock) PublishCalls() []struct {
+//     len(mockedEventPublisher.PublishCalls())
+func (mock *EventPublisherMock) PublishCalls() []struct {
 	Ctx       context.Context
 	Topic     string
 	Key       string

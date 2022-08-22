@@ -10,16 +10,16 @@ import (
 	"sync"
 )
 
-// Ensure, that userStorageMock does implement userStorage.
+// Ensure, that UserStorageMock does implement UserStorage.
 // If this is not the case, regenerate this file with moq.
-var _ userStorage = &userStorageMock{}
+var _ UserStorage = &UserStorageMock{}
 
-// userStorageMock is a mock implementation of userStorage.
+// UserStorageMock is a mock implementation of UserStorage.
 //
-// 	func TestSomethingThatUsesuserStorage(t *testing.T) {
+// 	func TestSomethingThatUsesUserStorage(t *testing.T) {
 //
-// 		// make and configure a mocked userStorage
-// 		mockeduserStorage := &userStorageMock{
+// 		// make and configure a mocked UserStorage
+// 		mockedUserStorage := &UserStorageMock{
 // 			DeleteUserFunc: func(ctx context.Context, userID uuid.UUID) error {
 // 				panic("mock out the DeleteUser method")
 // 			},
@@ -40,11 +40,11 @@ var _ userStorage = &userStorageMock{}
 // 			},
 // 		}
 //
-// 		// use mockeduserStorage in code that requires userStorage
+// 		// use mockedUserStorage in code that requires UserStorage
 // 		// and then make assertions.
 //
 // 	}
-type userStorageMock struct {
+type UserStorageMock struct {
 	// DeleteUserFunc mocks the DeleteUser method.
 	DeleteUserFunc func(ctx context.Context, userID uuid.UUID) error
 
@@ -119,9 +119,9 @@ type userStorageMock struct {
 }
 
 // DeleteUser calls DeleteUserFunc.
-func (mock *userStorageMock) DeleteUser(ctx context.Context, userID uuid.UUID) error {
+func (mock *UserStorageMock) DeleteUser(ctx context.Context, userID uuid.UUID) error {
 	if mock.DeleteUserFunc == nil {
-		panic("userStorageMock.DeleteUserFunc: method is nil but userStorage.DeleteUser was just called")
+		panic("UserStorageMock.DeleteUserFunc: method is nil but UserStorage.DeleteUser was just called")
 	}
 	callInfo := struct {
 		Ctx    context.Context
@@ -138,8 +138,8 @@ func (mock *userStorageMock) DeleteUser(ctx context.Context, userID uuid.UUID) e
 
 // DeleteUserCalls gets all the calls that were made to DeleteUser.
 // Check the length with:
-//     len(mockeduserStorage.DeleteUserCalls())
-func (mock *userStorageMock) DeleteUserCalls() []struct {
+//     len(mockedUserStorage.DeleteUserCalls())
+func (mock *UserStorageMock) DeleteUserCalls() []struct {
 	Ctx    context.Context
 	UserID uuid.UUID
 } {
@@ -154,9 +154,9 @@ func (mock *userStorageMock) DeleteUserCalls() []struct {
 }
 
 // ExistsByID calls ExistsByIDFunc.
-func (mock *userStorageMock) ExistsByID(ctx context.Context, userID uuid.UUID) (bool, error) {
+func (mock *UserStorageMock) ExistsByID(ctx context.Context, userID uuid.UUID) (bool, error) {
 	if mock.ExistsByIDFunc == nil {
-		panic("userStorageMock.ExistsByIDFunc: method is nil but userStorage.ExistsByID was just called")
+		panic("UserStorageMock.ExistsByIDFunc: method is nil but UserStorage.ExistsByID was just called")
 	}
 	callInfo := struct {
 		Ctx    context.Context
@@ -173,8 +173,8 @@ func (mock *userStorageMock) ExistsByID(ctx context.Context, userID uuid.UUID) (
 
 // ExistsByIDCalls gets all the calls that were made to ExistsByID.
 // Check the length with:
-//     len(mockeduserStorage.ExistsByIDCalls())
-func (mock *userStorageMock) ExistsByIDCalls() []struct {
+//     len(mockedUserStorage.ExistsByIDCalls())
+func (mock *UserStorageMock) ExistsByIDCalls() []struct {
 	Ctx    context.Context
 	UserID uuid.UUID
 } {
@@ -189,9 +189,9 @@ func (mock *userStorageMock) ExistsByIDCalls() []struct {
 }
 
 // GetUserByID calls GetUserByIDFunc.
-func (mock *userStorageMock) GetUserByID(ctx context.Context, userID uuid.UUID) (models.User, error) {
+func (mock *UserStorageMock) GetUserByID(ctx context.Context, userID uuid.UUID) (models.User, error) {
 	if mock.GetUserByIDFunc == nil {
-		panic("userStorageMock.GetUserByIDFunc: method is nil but userStorage.GetUserByID was just called")
+		panic("UserStorageMock.GetUserByIDFunc: method is nil but UserStorage.GetUserByID was just called")
 	}
 	callInfo := struct {
 		Ctx    context.Context
@@ -208,8 +208,8 @@ func (mock *userStorageMock) GetUserByID(ctx context.Context, userID uuid.UUID) 
 
 // GetUserByIDCalls gets all the calls that were made to GetUserByID.
 // Check the length with:
-//     len(mockeduserStorage.GetUserByIDCalls())
-func (mock *userStorageMock) GetUserByIDCalls() []struct {
+//     len(mockedUserStorage.GetUserByIDCalls())
+func (mock *UserStorageMock) GetUserByIDCalls() []struct {
 	Ctx    context.Context
 	UserID uuid.UUID
 } {
@@ -224,9 +224,9 @@ func (mock *userStorageMock) GetUserByIDCalls() []struct {
 }
 
 // GetUsersByFilter calls GetUsersByFilterFunc.
-func (mock *userStorageMock) GetUsersByFilter(ctx context.Context, opts models.GetUsersOptions) ([]models.User, error) {
+func (mock *UserStorageMock) GetUsersByFilter(ctx context.Context, opts models.GetUsersOptions) ([]models.User, error) {
 	if mock.GetUsersByFilterFunc == nil {
-		panic("userStorageMock.GetUsersByFilterFunc: method is nil but userStorage.GetUsersByFilter was just called")
+		panic("UserStorageMock.GetUsersByFilterFunc: method is nil but UserStorage.GetUsersByFilter was just called")
 	}
 	callInfo := struct {
 		Ctx  context.Context
@@ -243,8 +243,8 @@ func (mock *userStorageMock) GetUsersByFilter(ctx context.Context, opts models.G
 
 // GetUsersByFilterCalls gets all the calls that were made to GetUsersByFilter.
 // Check the length with:
-//     len(mockeduserStorage.GetUsersByFilterCalls())
-func (mock *userStorageMock) GetUsersByFilterCalls() []struct {
+//     len(mockedUserStorage.GetUsersByFilterCalls())
+func (mock *UserStorageMock) GetUsersByFilterCalls() []struct {
 	Ctx  context.Context
 	Opts models.GetUsersOptions
 } {
@@ -259,9 +259,9 @@ func (mock *userStorageMock) GetUsersByFilterCalls() []struct {
 }
 
 // InsertUser calls InsertUserFunc.
-func (mock *userStorageMock) InsertUser(ctx context.Context, user models.User) (uuid.UUID, error) {
+func (mock *UserStorageMock) InsertUser(ctx context.Context, user models.User) (uuid.UUID, error) {
 	if mock.InsertUserFunc == nil {
-		panic("userStorageMock.InsertUserFunc: method is nil but userStorage.InsertUser was just called")
+		panic("UserStorageMock.InsertUserFunc: method is nil but UserStorage.InsertUser was just called")
 	}
 	callInfo := struct {
 		Ctx  context.Context
@@ -278,8 +278,8 @@ func (mock *userStorageMock) InsertUser(ctx context.Context, user models.User) (
 
 // InsertUserCalls gets all the calls that were made to InsertUser.
 // Check the length with:
-//     len(mockeduserStorage.InsertUserCalls())
-func (mock *userStorageMock) InsertUserCalls() []struct {
+//     len(mockedUserStorage.InsertUserCalls())
+func (mock *UserStorageMock) InsertUserCalls() []struct {
 	Ctx  context.Context
 	User models.User
 } {
@@ -294,9 +294,9 @@ func (mock *userStorageMock) InsertUserCalls() []struct {
 }
 
 // UpdateUser calls UpdateUserFunc.
-func (mock *userStorageMock) UpdateUser(ctx context.Context, userID uuid.UUID, user models.User) error {
+func (mock *UserStorageMock) UpdateUser(ctx context.Context, userID uuid.UUID, user models.User) error {
 	if mock.UpdateUserFunc == nil {
-		panic("userStorageMock.UpdateUserFunc: method is nil but userStorage.UpdateUser was just called")
+		panic("UserStorageMock.UpdateUserFunc: method is nil but UserStorage.UpdateUser was just called")
 	}
 	callInfo := struct {
 		Ctx    context.Context
@@ -315,8 +315,8 @@ func (mock *userStorageMock) UpdateUser(ctx context.Context, userID uuid.UUID, u
 
 // UpdateUserCalls gets all the calls that were made to UpdateUser.
 // Check the length with:
-//     len(mockeduserStorage.UpdateUserCalls())
-func (mock *userStorageMock) UpdateUserCalls() []struct {
+//     len(mockedUserStorage.UpdateUserCalls())
+func (mock *UserStorageMock) UpdateUserCalls() []struct {
 	Ctx    context.Context
 	UserID uuid.UUID
 	User   models.User

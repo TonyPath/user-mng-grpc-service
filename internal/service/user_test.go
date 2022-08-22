@@ -20,7 +20,7 @@ func TestUserService_CreateUser_Success(t *testing.T) {
 	uuidMock := uuid.MustParse("d79b55a7-0ab9-4a54-b5f7-33f56f9f16f5")
 
 	newUser := models.NewUser{
-		Email: "antonis.papath@mail.com	",
+		Email:     "antonis.papath@mail.com	",
 		FirstName: "antonis",
 		LastName:  "papath",
 		Nickname:  "TonyPath",
@@ -28,13 +28,13 @@ func TestUserService_CreateUser_Success(t *testing.T) {
 		Password:  "password",
 	}
 
-	repoMock := userStorageMock{
+	repoMock := UserStorageMock{
 		InsertUserFunc: func(ctx context.Context, user models.User) (uuid.UUID, error) {
 			return uuidMock, nil
 		},
 	}
 
-	publisherMock := eventPublisherMock{
+	publisherMock := EventPublisherMock{
 		PublishFunc: func(ctx context.Context, topic string, key string, pbMessage protoreflect.ProtoMessage) error {
 			guard <- struct{}{}
 			return nil
@@ -55,7 +55,7 @@ func TestUserService_CreateUser_Success(t *testing.T) {
 
 func TestUserService_CreateUser_Fail(t *testing.T) {
 	mockNewUser := models.NewUser{
-		Email: "antonis.papath@mail.com	",
+		Email:     "antonis.papath@mail.com	",
 		FirstName: "antonis",
 		LastName:  "papath",
 		Nickname:  "TonyPath",
@@ -64,7 +64,7 @@ func TestUserService_CreateUser_Fail(t *testing.T) {
 	}
 
 	type deps struct {
-		repo *userStorageMock
+		repo *UserStorageMock
 	}
 	type args struct {
 		newUser models.NewUser
@@ -81,7 +81,7 @@ func TestUserService_CreateUser_Fail(t *testing.T) {
 		{
 			name: "ErrEmailTaken",
 			deps: deps{
-				repo: &userStorageMock{
+				repo: &UserStorageMock{
 					InsertUserFunc: func(ctx context.Context, user models.User) (uuid.UUID, error) {
 						return uuid.Nil, models.ErrEmailTaken
 					},
@@ -99,7 +99,7 @@ func TestUserService_CreateUser_Fail(t *testing.T) {
 		{
 			name: "Internal error",
 			deps: deps{
-				repo: &userStorageMock{
+				repo: &UserStorageMock{
 					InsertUserFunc: func(ctx context.Context, user models.User) (uuid.UUID, error) {
 						return uuid.Nil, errors.New("internal error")
 					},
@@ -118,7 +118,7 @@ func TestUserService_CreateUser_Fail(t *testing.T) {
 
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
-			publisherMock := eventPublisherMock{}
+			publisherMock := EventPublisherMock{}
 
 			s := NewUserService(tt.deps.repo, &publisherMock)
 
@@ -135,7 +135,7 @@ func TestUserService_UpdateUser_Success(t *testing.T) {
 	uuidMock := uuid.MustParse("d79b55a7-0ab9-4a54-b5f7-33f56f9f16f5")
 
 	updateUser := models.UpdateUser{
-		Email: "antonis.papath@mail.com	",
+		Email:     "antonis.papath@mail.com	",
 		FirstName: "antonis",
 		LastName:  "papath",
 		Nickname:  "TonyPath",
@@ -143,14 +143,14 @@ func TestUserService_UpdateUser_Success(t *testing.T) {
 		Password:  "password",
 	}
 
-	repoMock := userStorageMock{
+	repoMock := UserStorageMock{
 		UpdateUserFunc: func(ctx context.Context, userID uuid.UUID, user models.User) error {
 			return nil
 		},
 		GetUserByIDFunc: func(ctx context.Context, userID uuid.UUID) (models.User, error) {
 			return models.User{
-				ID: uuidMock,
-				Email: "antonis.papath@mail.com	",
+				ID:        uuidMock,
+				Email:     "antonis.papath@mail.com	",
 				FirstName: "antonis",
 				LastName:  "papath",
 				Nickname:  "TonyPath",
@@ -162,7 +162,7 @@ func TestUserService_UpdateUser_Success(t *testing.T) {
 		},
 	}
 
-	publisherMock := eventPublisherMock{
+	publisherMock := EventPublisherMock{
 		PublishFunc: func(ctx context.Context, topic string, key string, pbMessage protoreflect.ProtoMessage) error {
 			guard <- struct{}{}
 			return nil
@@ -184,7 +184,7 @@ func TestUserService_UpdateUser_Success(t *testing.T) {
 func TestUserService_UpdateUser_Fail(t *testing.T) {
 	uuidMock := uuid.MustParse("d79b55a7-0ab9-4a54-b5f7-33f56f9f16f5")
 	updateUser := models.UpdateUser{
-		Email: "antonis.papath@mail.com	",
+		Email:     "antonis.papath@mail.com	",
 		FirstName: "antonis",
 		LastName:  "papath",
 		Nickname:  "TonyPath",
@@ -193,7 +193,7 @@ func TestUserService_UpdateUser_Fail(t *testing.T) {
 	}
 
 	type deps struct {
-		repo *userStorageMock
+		repo *UserStorageMock
 	}
 	type args struct {
 		updateUser models.UpdateUser
@@ -210,7 +210,7 @@ func TestUserService_UpdateUser_Fail(t *testing.T) {
 		{
 			name: "ErrUserNotFound",
 			deps: deps{
-				repo: &userStorageMock{
+				repo: &UserStorageMock{
 					UpdateUserFunc: func(ctx context.Context, userID uuid.UUID, user models.User) error {
 						return nil
 					},
@@ -231,14 +231,14 @@ func TestUserService_UpdateUser_Fail(t *testing.T) {
 		{
 			name: "Internal error",
 			deps: deps{
-				repo: &userStorageMock{
+				repo: &UserStorageMock{
 					UpdateUserFunc: func(ctx context.Context, userID uuid.UUID, user models.User) error {
 						return errors.New("internal error")
 					},
 					GetUserByIDFunc: func(ctx context.Context, userID uuid.UUID) (models.User, error) {
 						return models.User{
-							ID: uuidMock,
-							Email: "antonis.papath@mail.com	",
+							ID:        uuidMock,
+							Email:     "antonis.papath@mail.com	",
 							FirstName: "antonis",
 							LastName:  "papath",
 							Nickname:  "TonyPath",
@@ -263,7 +263,7 @@ func TestUserService_UpdateUser_Fail(t *testing.T) {
 
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
-			publisherMock := eventPublisherMock{}
+			publisherMock := EventPublisherMock{}
 
 			s := NewUserService(tt.deps.repo, &publisherMock)
 

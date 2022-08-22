@@ -36,6 +36,7 @@ func main() {
 
 	if err := run(log); err != nil {
 		log.Error(err)
+		_ = log.Sync()
 		os.Exit(1)
 	}
 }
@@ -45,7 +46,7 @@ func run(log *zap.SugaredLogger) error {
 
 	cfg, err := config.New()
 	if err != nil {
-		return nil
+		return err
 	}
 
 	// Database connection
@@ -61,7 +62,9 @@ func run(log *zap.SugaredLogger) error {
 		return err
 	}
 	defer func() {
-		_ = db.Close()
+		if err := db.Close(); err != nil {
+			log.Errorw("close db", "error", err)
+		}
 	}()
 
 	// App Dependencies
