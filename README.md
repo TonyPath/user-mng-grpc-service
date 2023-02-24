@@ -1,6 +1,6 @@
 # GRPC User management service 
 
-[![go.mod Go version](https://img.shields.io/github/go-mod/go-version/TonyPath/retrier)](https://github.com/TonyPath/retrier)
+[![go.mod Go version](https://img.shields.io/github/go-mod/go-version/TonyPath/user-mng-grpc-service)](https://github.com/TonyPath/user-mng-grpc-service)
 
 
 ## Infra
